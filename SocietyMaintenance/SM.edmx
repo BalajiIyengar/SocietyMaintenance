@@ -1,0 +1,515 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SMModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="SMModelStoreContainer">
+          <EntitySet Name="DocumentTypeMaster" EntityType="SMModel.Store.DocumentTypeMaster" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmployeeDetails" EntityType="SMModel.Store.EmployeeDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="EmployeePayments" EntityType="SMModel.Store.EmployeePayments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SocietyExpenses" EntityType="SMModel.Store.SocietyExpenses" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TenantDetails" EntityType="SMModel.Store.TenantDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserBills" EntityType="SMModel.Store.UserBills" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserDetails" EntityType="SMModel.Store.UserDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserDocuments" EntityType="SMModel.Store.UserDocuments" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="UserPayment" EntityType="SMModel.Store.UserPayment" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VisitorDetails" EntityType="SMModel.Store.VisitorDetails" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VisitorTypesMaster" EntityType="SMModel.Store.VisitorTypesMaster" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_TenantDetails_TenantDetails" Association="SMModel.Store.FK_TenantDetails_TenantDetails">
+            <End Role="TenantDetails" EntitySet="TenantDetails" />
+            <End Role="TenantDetails1" EntitySet="TenantDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPayment_UserPayment" Association="SMModel.Store.FK_UserPayment_UserPayment">
+            <End Role="UserPayment" EntitySet="UserPayment" />
+            <End Role="UserPayment1" EntitySet="UserPayment" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="DocumentTypeMaster">
+          <Key>
+            <PropertyRef Name="DocId" />
+          </Key>
+          <Property Name="DocId" Type="bigint" Nullable="false" />
+          <Property Name="DocType" Type="varchar" Nullable="false" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="EmployeeDetails">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="bigint" Nullable="false" />
+          <Property Name="EmployeeName" Type="varchar(max)" Nullable="false" />
+          <Property Name="Address" Type="varchar(max)" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" Nullable="false" MaxLength="12" />
+          <Property Name="Salary" Type="int" Nullable="false" />
+          <Property Name="EmpImage" Type="image" />
+        </EntityType>
+        <EntityType Name="EmployeePayments">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="bigint" Nullable="false" />
+          <Property Name="SalaryPaid" Type="int" Nullable="false" />
+          <Property Name="PaidDate" Type="datetime" Nullable="false" />
+          <Property Name="PaidForMonth/Year" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SocietyExpenses">
+          <Key>
+            <PropertyRef Name="ExpenseId" />
+          </Key>
+          <Property Name="Amount" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Comments" Type="varchar(max)" />
+          <Property Name="ExpenseId" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TenantDetails">
+          <Key>
+            <PropertyRef Name="TenantId" />
+            <PropertyRef Name="FlatNumber" />
+          </Key>
+          <Property Name="TenantId" Type="bigint" Nullable="false" />
+          <Property Name="TenantName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FlatNumber" Type="bigint" Nullable="false" />
+          <Property Name="TenantAddress" Type="varchar" MaxLength="200" />
+          <Property Name="TenantEmailId" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="TenantPhoneNumber" Type="varchar" Nullable="false" MaxLength="12" />
+          <Property Name="TenantFamilyCount" Type="bigint" Nullable="false" />
+          <Property Name="isActive" Type="bit" Nullable="false" />
+          <Property Name="VehicleNumbers" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="UserBills">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="BillDate" />
+            <PropertyRef Name="BillForMonth" />
+            <PropertyRef Name="BillForYear" />
+          </Key>
+          <Property Name="FlatNumber" Type="bigint" Nullable="false" />
+          <Property Name="BillDate" Type="datetime" Nullable="false" />
+          <Property Name="BillForMonth" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="BillForYear" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Amount" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDetails">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+          </Key>
+          <Property Name="FlatNumber" Type="bigint" Nullable="false" />
+          <Property Name="OwnerName" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="OwnerDetails" Type="varchar" MaxLength="500" />
+          <Property Name="LastPaid" Type="datetime" />
+          <Property Name="EmailId" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="12" />
+          <Property Name="isRented" Type="bit" />
+        </EntityType>
+        <EntityType Name="UserDocuments">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="TenantId" />
+            <PropertyRef Name="DocumentName" />
+          </Key>
+          <Property Name="FlatNumber" Type="bigint" Nullable="false" />
+          <Property Name="TenantId" Type="bigint" Nullable="false" />
+          <Property Name="DocumentName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="DocumentData" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPayment">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="PaidDate" />
+            <PropertyRef Name="PaidTime" />
+          </Key>
+          <Property Name="FlatNumber" Type="bigint" Nullable="false" />
+          <Property Name="AmountPaid" Type="bigint" Nullable="false" />
+          <Property Name="PaidDate" Type="datetime" Nullable="false" />
+          <Property Name="PaidTime" Type="time" Nullable="false" />
+          <Property Name="PaymentMode" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="PaidForTheMonthOf" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="VisitorDetails">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="VisitorName" />
+            <PropertyRef Name="VisitDate" />
+            <PropertyRef Name="VisitTime" />
+          </Key>
+          <Property Name="FlatNumber" Type="bigint" Nullable="false" />
+          <Property Name="VisitorName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="VisitorAddress" Type="varchar" Nullable="false" MaxLength="300" />
+          <Property Name="VisitDate" Type="datetime" Nullable="false" />
+          <Property Name="VisitTime" Type="time" Nullable="false" />
+          <Property Name="VisitPurpose" Type="varchar" Nullable="false" MaxLength="200" />
+          <Property Name="VisitorImage" Type="image" />
+          <Property Name="VisitorType" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VisitorTypesMaster">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="bigint" Nullable="false" />
+          <Property Name="TypeName" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK_TenantDetails_TenantDetails">
+          <End Role="TenantDetails" Type="SMModel.Store.TenantDetails" Multiplicity="1" />
+          <End Role="TenantDetails1" Type="SMModel.Store.TenantDetails" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TenantDetails">
+              <PropertyRef Name="TenantId" />
+              <PropertyRef Name="FlatNumber" />
+            </Principal>
+            <Dependent Role="TenantDetails1">
+              <PropertyRef Name="TenantId" />
+              <PropertyRef Name="FlatNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPayment_UserPayment">
+          <End Role="UserPayment" Type="SMModel.Store.UserPayment" Multiplicity="1" />
+          <End Role="UserPayment1" Type="SMModel.Store.UserPayment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserPayment">
+              <PropertyRef Name="FlatNumber" />
+              <PropertyRef Name="PaidDate" />
+              <PropertyRef Name="PaidTime" />
+            </Principal>
+            <Dependent Role="UserPayment1">
+              <PropertyRef Name="FlatNumber" />
+              <PropertyRef Name="PaidDate" />
+              <PropertyRef Name="PaidTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SMModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="SMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DocumentTypeMasters" EntityType="SMModel.DocumentTypeMaster" />
+          <EntitySet Name="EmployeeDetails" EntityType="SMModel.EmployeeDetail" />
+          <EntitySet Name="EmployeePayments" EntityType="SMModel.EmployeePayment" />
+          <EntitySet Name="SocietyExpenses" EntityType="SMModel.SocietyExpens" />
+          <EntitySet Name="TenantDetails" EntityType="SMModel.TenantDetail" />
+          <EntitySet Name="UserBills" EntityType="SMModel.UserBill" />
+          <EntitySet Name="UserDetails" EntityType="SMModel.UserDetail" />
+          <EntitySet Name="UserPayments" EntityType="SMModel.UserPayment" />
+          <EntitySet Name="VisitorDetails" EntityType="SMModel.VisitorDetail" />
+          <EntitySet Name="VisitorTypesMasters" EntityType="SMModel.VisitorTypesMaster" />
+          <AssociationSet Name="FK_TenantDetails_TenantDetails" Association="SMModel.FK_TenantDetails_TenantDetails">
+            <End Role="TenantDetails" EntitySet="TenantDetails" />
+            <End Role="TenantDetails1" EntitySet="TenantDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserPayment_UserPayment" Association="SMModel.FK_UserPayment_UserPayment">
+            <End Role="UserPayment" EntitySet="UserPayments" />
+            <End Role="UserPayment1" EntitySet="UserPayments" />
+          </AssociationSet>
+          <EntitySet Name="UserDocuments" EntityType="SMModel.UserDocument" />
+        </EntityContainer>
+        <EntityType Name="DocumentTypeMaster">
+          <Key>
+            <PropertyRef Name="DocId" />
+          </Key>
+          <Property Name="DocId" Type="Int64" Nullable="false" />
+          <Property Name="DocType" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="EmployeeDetail">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int64" Nullable="false" />
+          <Property Name="EmployeeName" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="Salary" Type="Int32" Nullable="false" />
+          <Property Name="EmpImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="EmployeePayment">
+          <Key>
+            <PropertyRef Name="EmployeeId" />
+          </Key>
+          <Property Name="EmployeeId" Type="Int64" Nullable="false" />
+          <Property Name="SalaryPaid" Type="Int32" Nullable="false" />
+          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaidForMonth_Year" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="SocietyExpens">
+          <Key>
+            <PropertyRef Name="ExpenseId" />
+          </Key>
+          <Property Name="Amount" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <Property Name="ExpenseId" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TenantDetail">
+          <Key>
+            <PropertyRef Name="TenantId" />
+            <PropertyRef Name="FlatNumber" />
+          </Key>
+          <Property Name="TenantId" Type="Int64" Nullable="false" />
+          <Property Name="TenantName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FlatNumber" Type="Int64" Nullable="false" />
+          <Property Name="TenantAddress" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="TenantEmailId" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="TenantPhoneNumber" Type="String" Nullable="false" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="TenantFamilyCount" Type="Int64" Nullable="false" />
+          <Property Name="isActive" Type="Boolean" Nullable="false" />
+          <Property Name="VehicleNumbers" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="TenantDetails1" Relationship="SMModel.FK_TenantDetails_TenantDetails" FromRole="TenantDetails" ToRole="TenantDetails1" />
+          <NavigationProperty Name="TenantDetail1" Relationship="SMModel.FK_TenantDetails_TenantDetails" FromRole="TenantDetails1" ToRole="TenantDetails" />
+        </EntityType>
+        <EntityType Name="UserBill">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="BillDate" />
+            <PropertyRef Name="BillForMonth" />
+            <PropertyRef Name="BillForYear" />
+          </Key>
+          <Property Name="FlatNumber" Type="Int64" Nullable="false" />
+          <Property Name="BillDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="BillForMonth" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="BillForYear" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Amount" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserDetail">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+          </Key>
+          <Property Name="FlatNumber" Type="Int64" Nullable="false" />
+          <Property Name="OwnerName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="OwnerDetails" Type="String" MaxLength="500" Unicode="false" FixedLength="false" />
+          <Property Name="LastPaid" Type="DateTime" Precision="3" />
+          <Property Name="EmailId" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="12" Unicode="false" FixedLength="false" />
+          <Property Name="isRented" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="UserPayment">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="PaidDate" />
+            <PropertyRef Name="PaidTime" />
+          </Key>
+          <Property Name="FlatNumber" Type="Int64" Nullable="false" />
+          <Property Name="AmountPaid" Type="Int64" Nullable="false" />
+          <Property Name="PaidDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PaidTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="PaymentMode" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="PaidForTheMonthOf" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="UserPayment1" Relationship="SMModel.FK_UserPayment_UserPayment" FromRole="UserPayment" ToRole="UserPayment1" />
+          <NavigationProperty Name="UserPayment2" Relationship="SMModel.FK_UserPayment_UserPayment" FromRole="UserPayment1" ToRole="UserPayment" />
+        </EntityType>
+        <EntityType Name="VisitorDetail">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="VisitorName" />
+            <PropertyRef Name="VisitDate" />
+            <PropertyRef Name="VisitTime" />
+          </Key>
+          <Property Name="FlatNumber" Type="Int64" Nullable="false" />
+          <Property Name="VisitorName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="VisitorAddress" Type="String" Nullable="false" MaxLength="300" Unicode="false" FixedLength="false" />
+          <Property Name="VisitDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="VisitTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="VisitPurpose" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+          <Property Name="VisitorImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="VisitorType" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VisitorTypesMaster">
+          <Key>
+            <PropertyRef Name="TypeId" />
+          </Key>
+          <Property Name="TypeId" Type="Int64" Nullable="false" />
+          <Property Name="TypeName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_TenantDetails_TenantDetails">
+          <End Role="TenantDetails" Type="SMModel.TenantDetail" Multiplicity="1" />
+          <End Role="TenantDetails1" Type="SMModel.TenantDetail" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="TenantDetails">
+              <PropertyRef Name="TenantId" />
+              <PropertyRef Name="FlatNumber" />
+            </Principal>
+            <Dependent Role="TenantDetails1">
+              <PropertyRef Name="TenantId" />
+              <PropertyRef Name="FlatNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserPayment_UserPayment">
+          <End Role="UserPayment" Type="SMModel.UserPayment" Multiplicity="1" />
+          <End Role="UserPayment1" Type="SMModel.UserPayment" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="UserPayment">
+              <PropertyRef Name="FlatNumber" />
+              <PropertyRef Name="PaidDate" />
+              <PropertyRef Name="PaidTime" />
+            </Principal>
+            <Dependent Role="UserPayment1">
+              <PropertyRef Name="FlatNumber" />
+              <PropertyRef Name="PaidDate" />
+              <PropertyRef Name="PaidTime" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UserDocument">
+          <Key>
+            <PropertyRef Name="FlatNumber" />
+            <PropertyRef Name="TenantId" />
+            <PropertyRef Name="DocumentName" />
+          </Key>
+          <Property Type="Int64" Name="FlatNumber" Nullable="false" />
+          <Property Type="Int64" Name="TenantId" Nullable="false" />
+          <Property Type="String" Name="DocumentName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Binary" Name="DocumentData" Nullable="false" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SMModelStoreContainer" CdmEntityContainer="SMEntities">
+          <EntitySetMapping Name="DocumentTypeMasters">
+            <EntityTypeMapping TypeName="SMModel.DocumentTypeMaster">
+              <MappingFragment StoreEntitySet="DocumentTypeMaster">
+                <ScalarProperty Name="DocId" ColumnName="DocId" />
+                <ScalarProperty Name="DocType" ColumnName="DocType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeDetails">
+            <EntityTypeMapping TypeName="SMModel.EmployeeDetail">
+              <MappingFragment StoreEntitySet="EmployeeDetails">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Salary" ColumnName="Salary" />
+                <ScalarProperty Name="EmpImage" ColumnName="EmpImage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeePayments">
+            <EntityTypeMapping TypeName="SMModel.EmployeePayment">
+              <MappingFragment StoreEntitySet="EmployeePayments">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="SalaryPaid" ColumnName="SalaryPaid" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="PaidForMonth_Year" ColumnName="PaidForMonth/Year" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SocietyExpenses">
+            <EntityTypeMapping TypeName="SMModel.SocietyExpens">
+              <MappingFragment StoreEntitySet="SocietyExpenses">
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ExpenseId" ColumnName="ExpenseId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TenantDetails">
+            <EntityTypeMapping TypeName="SMModel.TenantDetail">
+              <MappingFragment StoreEntitySet="TenantDetails">
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="TenantName" ColumnName="TenantName" />
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="TenantAddress" ColumnName="TenantAddress" />
+                <ScalarProperty Name="TenantEmailId" ColumnName="TenantEmailId" />
+                <ScalarProperty Name="TenantPhoneNumber" ColumnName="TenantPhoneNumber" />
+                <ScalarProperty Name="TenantFamilyCount" ColumnName="TenantFamilyCount" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="VehicleNumbers" ColumnName="VehicleNumbers" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserBills">
+            <EntityTypeMapping TypeName="SMModel.UserBill">
+              <MappingFragment StoreEntitySet="UserBills">
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="BillDate" ColumnName="BillDate" />
+                <ScalarProperty Name="BillForMonth" ColumnName="BillForMonth" />
+                <ScalarProperty Name="BillForYear" ColumnName="BillForYear" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDetails">
+            <EntityTypeMapping TypeName="SMModel.UserDetail">
+              <MappingFragment StoreEntitySet="UserDetails">
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="OwnerName" ColumnName="OwnerName" />
+                <ScalarProperty Name="OwnerDetails" ColumnName="OwnerDetails" />
+                <ScalarProperty Name="LastPaid" ColumnName="LastPaid" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="isRented" ColumnName="isRented" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPayments">
+            <EntityTypeMapping TypeName="SMModel.UserPayment">
+              <MappingFragment StoreEntitySet="UserPayment">
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+                <ScalarProperty Name="PaidDate" ColumnName="PaidDate" />
+                <ScalarProperty Name="PaidTime" ColumnName="PaidTime" />
+                <ScalarProperty Name="PaymentMode" ColumnName="PaymentMode" />
+                <ScalarProperty Name="PaidForTheMonthOf" ColumnName="PaidForTheMonthOf" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitorDetails">
+            <EntityTypeMapping TypeName="SMModel.VisitorDetail">
+              <MappingFragment StoreEntitySet="VisitorDetails">
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+                <ScalarProperty Name="VisitorName" ColumnName="VisitorName" />
+                <ScalarProperty Name="VisitorAddress" ColumnName="VisitorAddress" />
+                <ScalarProperty Name="VisitDate" ColumnName="VisitDate" />
+                <ScalarProperty Name="VisitTime" ColumnName="VisitTime" />
+                <ScalarProperty Name="VisitPurpose" ColumnName="VisitPurpose" />
+                <ScalarProperty Name="VisitorImage" ColumnName="VisitorImage" />
+                <ScalarProperty Name="VisitorType" ColumnName="VisitorType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VisitorTypesMasters">
+            <EntityTypeMapping TypeName="SMModel.VisitorTypesMaster">
+              <MappingFragment StoreEntitySet="VisitorTypesMaster">
+                <ScalarProperty Name="TypeId" ColumnName="TypeId" />
+                <ScalarProperty Name="TypeName" ColumnName="TypeName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserDocuments">
+            <EntityTypeMapping TypeName="SMModel.UserDocument">
+              <MappingFragment StoreEntitySet="UserDocuments">
+                <ScalarProperty Name="DocumentData" ColumnName="DocumentData" />
+                <ScalarProperty Name="DocumentName" ColumnName="DocumentName" />
+                <ScalarProperty Name="TenantId" ColumnName="TenantId" />
+                <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

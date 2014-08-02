@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7C2D053F-9E50-436C-8432-683CDF498C38}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SocietyMaintenance</RootNamespace>
+    <AssemblyName>SocietyMaintenance</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebCam_Capture">
+      <HintPath>..\resources\WebCam_Capture.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounts.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts.Designer.cs">
+      <DependentUpon>Accounts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddDocumentType.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddDocumentType.Designer.cs">
+      <DependentUpon>AddDocumentType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddExpense.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddExpense.Designer.cs">
+      <DependentUpon>AddExpense.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddFlats.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddFlats.Designer.cs">
+      <DependentUpon>AddFlats.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddVisitor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddVisitor.Designer.cs">
+      <DependentUpon>AddVisitor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Admin Files.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Admin Files.Designer.cs">
+      <DependentUpon>Admin Files.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CommonUtility.cs" />
+    <Compile Include="DocumentTypeMaster.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeeDetail.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmployeePayment.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Employees.Designer.cs">
+      <DependentUpon>Employees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Expenses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Expenses.Designer.cs">
+      <DependentUpon>Expenses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Send Files.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Send Files.Designer.cs">
+      <DependentUpon>Send Files.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GenerateBill.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GenerateBill.Designer.cs">
+      <DependentUpon>GenerateBill.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HomePage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="HomePage.Designer.cs">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overall.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Overall.Designer.cs">
+      <DependentUpon>Overall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PaymentHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PaymentHistory.Designer.cs">
+      <DependentUpon>PaymentHistory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="SocietyExpens.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TenantDetail.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserBill.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserBills.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserBills.Designer.cs">
+      <DependentUpon>UserBills.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserDetail.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserDocument.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserFiles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserFiles.Designer.cs">
+      <DependentUpon>UserFiles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserPayment.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserPayments.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserPayments.Designer.cs">
+      <DependentUpon>UserPayments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewEmployees.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewEmployees.Designer.cs">
+      <DependentUpon>ViewEmployees.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisitorDetail.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VisitorSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VisitorSearch.Designer.cs">
+      <DependentUpon>VisitorSearch.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VisitorTypesMaster.cs">
+      <DependentUpon>SM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="WebCam.cs" />
+    <EmbeddedResource Include="Accounts.resx">
+      <DependentUpon>Accounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddDocumentType.resx">
+      <DependentUpon>AddDocumentType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddExpense.resx">
+      <DependentUpon>AddExpense.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddFlats.resx">
+      <DependentUpon>AddFlats.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddVisitor.resx">
+      <DependentUpon>AddVisitor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Admin Files.resx">
+      <DependentUpon>Admin Files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Employees.resx">
+      <DependentUpon>Employees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Expenses.resx">
+      <DependentUpon>Expenses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GenerateBill.resx">
+      <DependentUpon>GenerateBill.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HomePage.resx">
+      <DependentUpon>HomePage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Overall.resx">
+      <DependentUpon>Overall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PaymentHistory.resx">
+      <DependentUpon>PaymentHistory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Send Files.resx">
+      <DependentUpon>Send Files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserBills.resx">
+      <DependentUpon>UserBills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserFiles.resx">
+      <DependentUpon>UserFiles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserPayments.resx">
+      <DependentUpon>UserPayments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewEmployees.resx">
+      <DependentUpon>ViewEmployees.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="VisitorSearch.resx">
+      <DependentUpon>VisitorSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EntityDeploy Include="SM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="SM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SM.edmx</DependentUpon>
+      <LastGenOutput>SM.Context.cs</LastGenOutput>
+    </None>
+    <None Include="SM.edmx.diagram">
+      <DependentUpon>SM.edmx</DependentUpon>
+    </None>
+    <None Include="SM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SM.edmx</DependentUpon>
+      <LastGenOutput>SM.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="InteropExtensionLib">
+      <Guid>{C3D19104-7A67-4EB0-B459-D5B2E734D430}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="WIA">
+      <Guid>{94A0E92D-43C0-494E-AC29-FD45948A5221}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
