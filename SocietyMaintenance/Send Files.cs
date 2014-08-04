@@ -68,6 +68,17 @@ namespace SocietyMaintenance
                     this.Close();
                 }
             }
+            else
+            {
+                progressBar_sendMail.Value = 20;
+
+                CommonUtility.sendMail(fromEmailId, toEmailId, richTextBox_subject.Text, richTextBox_body.Text, attachments, progressBar_sendMail);
+                CommonUtility.showSuccessPopUp("Successfully Sent Mail to " + comboBox_associatedEmailIds.Text);
+
+                this.Close();
+            }
+
+
         }
     }
 }

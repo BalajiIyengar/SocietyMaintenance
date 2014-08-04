@@ -64,9 +64,27 @@ namespace SocietyMaintenance
                 dataGridView_visitors.Columns["VisitPurpose"].Visible = false;
                 dataGridView_visitors.Columns["VisitorImage"].Visible = false;
                 dataGridView_visitors.Columns["VisitorType"].Visible = false;
+                dataGridView_visitors.CellClick -= dataGridView_visitors_clicked;
+                dataGridView_visitors.CellClick += dataGridView_visitors_clicked;
             }
 
             label_visitorCount.Text = visitors.Count.ToString();
+        }
+
+        private void dataGridView_visitors_clicked(object sender, DataGridViewCellEventArgs e)
+        {
+            DataGridView button = sender as DataGridView;
+            DataGridViewCellCollection selectedUser = button.CurrentRow.Cells as DataGridViewCellCollection;
+
+            //Returns the selected FlatNumber ID
+            long flatId = long.Parse(selectedUser["FlatNumber"].Value.ToString());
+            TimeSpan visitTime = TimeSpan.Parse(selectedUser["VisitTime"].Value.ToString());
+            DateTime visitDate = DateTime.Parse(selectedUser["VisitDate"].Value.ToString());
+        
+            
+            AddVisitor visitorDetails = new AddVisitor(flatId,visitTime,visitDate);
+            visitorDetails.Show();
+
         }
 
         private void checkBox_flat_CheckedChanged(object sender, EventArgs e)

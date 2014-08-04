@@ -47,8 +47,6 @@ namespace SocietyMaintenance
 
         private void dataGridView_users_clicked(object sender, DataGridViewCellEventArgs e)
         {
-
-
             DataGridView button = sender as DataGridView;
             DataGridViewCellCollection selectedUser = button.CurrentRow.Cells as DataGridViewCellCollection;
 

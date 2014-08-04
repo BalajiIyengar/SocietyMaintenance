@@ -15,6 +15,9 @@ namespace SocietyMaintenance
     {
         static SMEntities db = CommonUtility.getConnection();
         WebCam webcam;
+        private long flatId;
+        private TimeSpan visitTime;
+        private DateTime visitDate;
 
         public AddVisitor()
         {
@@ -23,28 +26,83 @@ namespace SocietyMaintenance
             webcam.InitializeWebCam(ref pictureBox_recording);
         }
 
+        public AddVisitor(long flatId, TimeSpan visitTime, DateTime visitDate)
+        {
+            InitializeComponent();
+            this.flatId = flatId;
+            this.visitTime = visitTime;
+            this.visitDate = visitDate;
+        }
+
         private void AddVisitor_Load(object sender, EventArgs e)
         {
+            if (flatId != 0 && visitDate != null && visitTime != null)
+            {
+                button_addVisitor.Visible = false;
+                button_capture.Visible = false;
+                button_saveImage.Visible = false;
+                button_addVisitorType.Visible = false;
+                comboBox_flatNumbers.Enabled = false;
+                comboBox_attendingEmployee.Enabled = false;
+                comboBox_visitorType.Enabled = false;
+                dateTimePicker_date.Enabled = false;
+                dateTimePicker_time.Enabled = false;
+
+                VisitorDetail visitorDetails = db.VisitorDetails.Where(x => x.FlatNumber == flatId && x.VisitDate == visitDate && x.VisitTime == visitTime).Single();
+
+                comboBox_flatNumbers.Text = visitorDetails.FlatNumber.ToString();
+                textBox_visitorAddress.Text = visitorDetails.VisitorAddress;
+                textBox_visitorName.Text = visitorDetails.VisitorName;
+                textBox_visitPurpose.Text = visitorDetails.VisitPurpose;
+                dateTimePicker_date.Text = visitorDetails.VisitDate.ToString();
+                dateTimePicker_time.Text = visitorDetails.VisitTime.ToString();
+
+                if(visitorDetails.VisitorImage != null)
+                pictureBox_capturedImage.Image = CommonUtility.getImageFromByteArray(visitorDetails.VisitorImage);
+
+                dateTimePicker_time.Format = DateTimePickerFormat.Custom;
+                dateTimePicker_time.CustomFormat = "HH:mm";
+                dateTimePicker_time.ShowUpDown = true;
+
+                dateTimePicker_time.Text = new DateTime(visitorDetails.VisitTime.Ticks).ToString("HH:mm"); ;
+
+                if (visitorDetails.EmployeeId != null)
+                comboBox_attendingEmployee.Text = db.EmployeeDetails.Where(x => x.EmployeeId == visitorDetails.EmployeeId).Single().EmployeeName.ToString();
+               
+                if (visitorDetails.VisitorType != 0)
+                comboBox_visitorType.Text = db.VisitorTypesMasters.Where(x => x.TypeId == visitorDetails.VisitorType).Single().TypeName;
+
+               return;
+            }
+            
             button_addVisitorType.Visible = false;
            
             CommonUtility.setDropDownSearchable(comboBox_visitorType);
             CommonUtility.setDropDownSearchable(comboBox_flatNumbers);
             CommonUtility.setDropDownSearchable(comboBox_attendingEmployee);
 
-            comboBox_attendingEmployee.DataSource = db.EmployeeDetails.Select(x => x.EmployeeName).ToList();
+            comboBox_attendingEmployee.DataSource = db.EmployeeDetails.ToList();
+            comboBox_attendingEmployee.DisplayMember = "EmployeeName";
+            comboBox_attendingEmployee.ValueMember = "EmployeeId";
+
             comboBox_flatNumbers.DataSource = db.UserDetails.Select(x => x.FlatNumber).ToList();
-            comboBox_visitorType.DataSource = db.VisitorTypesMasters.Select(x => x.TypeName).ToList();
+
+            comboBox_visitorType.DataSource = db.VisitorTypesMasters.ToList();
+            comboBox_visitorType.DisplayMember = "TypeName";
+            comboBox_visitorType.ValueMember = "TypeId";
 
             dateTimePicker_time.Format = DateTimePickerFormat.Custom;
             dateTimePicker_time.CustomFormat = "HH:mm"; 
             dateTimePicker_time.ShowUpDown = true;
 
-
             dateTimePicker_time.Text = DateTime.Now.ToString("HH:mm");
+
         }
 
         private void button_addVisitor_Click(object sender, EventArgs e)
         {
+            webcam.Stop();
+            
             String errors = "";
             if (textBox_visitorName.Text.Trim().Length == 0)
                 errors += "Please Enter Visitor Name \n";
@@ -60,7 +118,7 @@ namespace SocietyMaintenance
                 CommonUtility.showErrorPopUp(errors);
                 return;
             }
-             byte[] visitorImage = null;
+            byte[] visitorImage = null;
 
             if (pictureBox_capturedImage.Image != null)
             {
@@ -69,17 +127,7 @@ namespace SocietyMaintenance
                 visitorImage = ms.ToArray();
 
             }
-
-
-
-            String visitorType = comboBox_visitorType.Text;
-            long visitorTypeId = 0;
-            
-            if(visitorType.Length > 0)
-            {
-                visitorTypeId = db.VisitorTypesMasters.Where(x=>x.TypeName.Equals(visitorType)).Single().TypeId;
-            }
-
+            VisitorTypesMaster visitorMaster = comboBox_visitorType.SelectedItem as VisitorTypesMaster;
 
             VisitorDetail visitorDetails = new VisitorDetail();
             visitorDetails.FlatNumber = long.Parse(comboBox_flatNumbers.Text);
@@ -87,20 +135,18 @@ namespace SocietyMaintenance
             visitorDetails.VisitorAddress = textBox_visitorAddress.Text;
             visitorDetails.VisitorImage = visitorImage;
             visitorDetails.VisitorName = textBox_visitorName.Text;
-            visitorDetails.VisitorType = visitorTypeId;
+            visitorDetails.VisitorType = visitorMaster.TypeId;
             visitorDetails.VisitPurpose = textBox_visitPurpose.Text;
             visitorDetails.VisitTime = TimeSpan.Parse(dateTimePicker_time.Text);
 
+            EmployeeDetail employeeDetails = comboBox_attendingEmployee.SelectedItem as EmployeeDetail;
+
+            visitorDetails.EmployeeId = employeeDetails.EmployeeId;
             db.VisitorDetails.Add(visitorDetails);
 
             db.SaveChanges();
 
-
             CommonUtility.showSuccessPopUp("Successfully Added Visitor");
-
-            String time = dateTimePicker_time.Text;
-
-
         }
 
         private void linkLabel_addVisitorType_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -152,25 +198,17 @@ namespace SocietyMaintenance
 
         private void button_capture_Click(object sender, EventArgs e)
         {
-             button_saveImage.Visible = true;
-
-            WebCam webcam = new WebCam();
-            webcam.InitializeWebCam(ref pictureBox_recording);
-          
-            webcam.Start();
-
+            button_saveImage.Visible = true;
+            webcam.Continue();
         }
 
        
 
         private void button_saveImage_Click(object sender, EventArgs e)
         {
-
             pictureBox_capturedImage.Image = pictureBox_recording.Image;
-
-            webcam.Continue();
-
-            webcam.Stop();
+           // webcam.Continue();
+            //webcam.Stop();
            // SaveImageCapture(pictureBox_capturedImage.Image);
         }
 

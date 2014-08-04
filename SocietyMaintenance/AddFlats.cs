@@ -19,6 +19,7 @@ namespace SocietyMaintenance
     {
         long selectedFlatId = 0;
         SMEntities db = CommonUtility.getConnection();
+        long tenantId = 0;
         
         public AddFlats()
         {
@@ -177,7 +178,7 @@ namespace SocietyMaintenance
                     TenantDetail activeTenant = db.TenantDetails.Where(x => x.isActive == true && x.FlatNumber == selectedFlatId).Single();
                     if (activeTenant != null)
                     {
-
+                        tenantId = activeTenant.TenantId;
                         checkBox_rented.Checked = true;
                         textBox_tenantAddress.Text = activeTenant.TenantAddress;
                         textBox_tenantEmailId.Text = activeTenant.TenantEmailId;
@@ -185,9 +186,7 @@ namespace SocietyMaintenance
                         textBox_tenantPeopleCount.Text = activeTenant.TenantFamilyCount.ToString();
                         textBox_tenantPhoneNumber.Text = activeTenant.TenantPhoneNumber;
                         textBox_tenantVehicle.Text = activeTenant.VehicleNumbers;
-                       
                     }
-
                 }
             }
             else
@@ -203,7 +202,6 @@ namespace SocietyMaintenance
             userDetails.OwnerDetails = textBox_ownerAddress.Text.Trim();
             userDetails.OwnerName = textBox_ownerName.Text.Trim();
             userDetails.PhoneNumber = textBox_phoneNumber.Text.Trim();
-            
 
             if (checkBox_rented.Checked)
             {
@@ -228,9 +226,9 @@ namespace SocietyMaintenance
                 else
                 {
                     long lastTenantId = 0;
-                    if(db.TenantDetails.Count() > 0)
-                        lastTenantId = db.TenantDetails.Select(x=>x.TenantId).Max();
-                    
+                    if (db.TenantDetails.Count() > 0)
+                        lastTenantId = db.TenantDetails.Select(x => x.TenantId).Max();
+
                     TenantDetail tenantDetails = new TenantDetail();
                     tenantDetails.TenantAddress = textBox_tenantAddress.Text.Trim();
                     tenantDetails.TenantEmailId = textBox_tenantEmailId.Text.Trim();
@@ -244,6 +242,25 @@ namespace SocietyMaintenance
 
                     db.TenantDetails.Add(tenantDetails);
                 }
+            }
+            else
+            {
+               // UserDetail userDetail = new UserDetail();
+               
+
+                 UserDetail userDetail = db.UserDetails.Where(x => x.FlatNumber == selectedFlatId).Single();
+                 userDetail.isRented = false;
+                 userDetail.FlatNumber = selectedFlatId;
+
+                 
+
+                 TenantDetail tenantDetails = db.TenantDetails.Where(x => x.FlatNumber == selectedFlatId && x.isActive == true).Single();
+                 tenantDetails.isActive = false;
+
+                 db.SaveChanges();
+
+
+
             }
             db.SaveChanges();
             CommonUtility.showSuccessPopUp("Successfully Updated");
@@ -262,7 +279,6 @@ namespace SocietyMaintenance
                 comboBox_tenantFileType.Visible = true;
                 button_tenantSelectFiles.Visible = true;
                 dataGridView2.Visible = true;
-
             }
             else
             {
@@ -282,16 +298,14 @@ namespace SocietyMaintenance
                 if (comboBox_fileType.Items.Count > 0)
                 {  
                     selectFiles(dataGridView1,false);
-               
                 }
-            }
+         }
         Hashtable userFilesDb = new Hashtable();
         Hashtable userFilesDisplay = new Hashtable();
 
         Hashtable tenantFilesDb = new Hashtable();
         Hashtable tenantFilesDisplay = new Hashtable();
         List<String> masters = new List<string>();
-
 
         void selectFiles(DataGridView dataGridView,bool isTenant)
         {
@@ -359,7 +373,6 @@ namespace SocietyMaintenance
                         local.Rows.Add(dr);
                     }
                 }
-
                 dataGridView.DataSource = local;
             }
         }
@@ -383,14 +396,12 @@ namespace SocietyMaintenance
                  if (comboBox_tenantFileType.Items.Count > 0)
                  {
                      selectFiles(dataGridView2, true);
-
                  }
              }
          }
 
             void uploadFiles(long flatNumber,long tenantId,bool isOwner)
             {
-             
                  try
                  {
                      if (isOwner)
@@ -416,8 +427,5 @@ namespace SocietyMaintenance
                      ex.GetBaseException();
                  }
             }
-
-           
-
     }
 }

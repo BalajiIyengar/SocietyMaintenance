@@ -94,7 +94,14 @@
     <Compile Include="Admin Files.Designer.cs">
       <DependentUpon>Admin Files.cs</DependentUpon>
     </Compile>
+    <Compile Include="AllMails.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AllMails.Designer.cs">
+      <DependentUpon>AllMails.cs</DependentUpon>
+    </Compile>
     <Compile Include="CommonUtility.cs" />
+    <Compile Include="Datetime.cs" />
     <Compile Include="DocumentTypeMaster.cs">
       <DependentUpon>SM.tt</DependentUpon>
     </Compile>
@@ -235,6 +242,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Admin Files.resx">
       <DependentUpon>Admin Files.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AllMails.resx">
+      <DependentUpon>AllMails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Employees.resx">
       <DependentUpon>Employees.cs</DependentUpon>

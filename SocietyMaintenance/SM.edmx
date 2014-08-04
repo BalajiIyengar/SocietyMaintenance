@@ -141,6 +141,7 @@
           <Property Name="VisitPurpose" Type="varchar" Nullable="false" MaxLength="200" />
           <Property Name="VisitorImage" Type="image" />
           <Property Name="VisitorType" Type="bigint" Nullable="false" />
+          <Property Name="EmployeeId" Type="bigint" />
         </EntityType>
         <EntityType Name="VisitorTypesMaster">
           <Key>
@@ -312,6 +313,7 @@
           <Property Name="VisitPurpose" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
           <Property Name="VisitorImage" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="VisitorType" Type="Int64" Nullable="false" />
+          <Property Type="Int64" Name="EmployeeId" />
         </EntityType>
         <EntityType Name="VisitorTypesMaster">
           <Key>
@@ -461,6 +463,7 @@
           <EntitySetMapping Name="VisitorDetails">
             <EntityTypeMapping TypeName="SMModel.VisitorDetail">
               <MappingFragment StoreEntitySet="VisitorDetails">
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
                 <ScalarProperty Name="FlatNumber" ColumnName="FlatNumber" />
                 <ScalarProperty Name="VisitorName" ColumnName="VisitorName" />
                 <ScalarProperty Name="VisitorAddress" ColumnName="VisitorAddress" />

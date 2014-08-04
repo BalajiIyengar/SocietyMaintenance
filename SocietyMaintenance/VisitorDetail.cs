@@ -22,5 +22,6 @@ namespace SocietyMaintenance
         public string VisitPurpose { get; set; }
         public byte[] VisitorImage { get; set; }
         public long VisitorType { get; set; }
+        public Nullable<long> EmployeeId { get; set; }
     }
 }
